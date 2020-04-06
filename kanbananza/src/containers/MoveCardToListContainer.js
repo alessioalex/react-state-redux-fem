@@ -3,15 +3,12 @@ import { moveCardToList } from '../actions/card-actions';
 import MoveCardToList from '../components/MoveCardToList';
 import { createSelector } from 'reselect';
 
-const getListEntries = state => state.lists.entities;
-
+const getListEntities = state => state.lists.entities;
 const getLists = createSelector(
-  [ getListEntries ],
+  [getListEntities],
   lists => {
-    console.log('Generating an array of the lists', lists);
-
     return Object.values(lists);
-  }
+  },
 );
 
 const mapStateToProps = state => {

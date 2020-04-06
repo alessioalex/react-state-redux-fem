@@ -3,6 +3,7 @@ import defaultState from './default-state';
 
 const user = new schema.Entity('users');
 const card = new schema.Entity('cards', { assignedTo: user });
+
 const list = new schema.Entity('lists', {
   cards: [card],
 });
@@ -26,7 +27,7 @@ export const cards = {
 };
 
 export default {
-  users,
   lists,
+  users,
   cards,
 };
