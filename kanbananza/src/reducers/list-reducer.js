@@ -1,28 +1,17 @@
 import { lists as defaultLists } from '../normalized-state';
-import set from 'lodash/fp/set';
-
-// set(chain of properties, what you want to replace, the object)
+import { addIdToChildren, addEntity } from './_utilities';
 
 const listReducer = (lists = defaultLists, action) => {
   if (action.type === 'CARD_CREATE') {
     const { cardId, listId } = action.payload;
 
-    const cards = lists.entities[listId].cards.concat(cardId);
-    return set(['entities', listId, 'cards'], cards, lists);
+    return addIdToChildren(lists, listId, 'cards', cardId);
+  }
 
-    /*
-    const entities = { ...lists.entities };
+  if (action.type === 'LIST_CREATE') {
+    const { list, listId } = action.payload;
 
-    entities[listId] = {
-      ...entities[listId],
-      cards: entities[listId].cards.concat(cardId),
-    };
-
-    return {
-      ...lists,
-      entities,
-    };
-    */
+    return addEntity(lists, list, listId);
   }
 
   return lists;
