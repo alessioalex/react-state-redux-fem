@@ -1,9 +1,21 @@
 import { connect } from 'react-redux';
 import { moveCardToList } from '../actions/card-actions';
 import MoveCardToList from '../components/MoveCardToList';
+import { createSelector } from 'reselect';
+
+const getListEntries = state => state.lists.entities;
+
+const getLists = createSelector(
+  [ getListEntries ],
+  lists => {
+    console.log('Generating an array of the lists', lists);
+
+    return Object.values(lists);
+  }
+);
 
 const mapStateToProps = state => {
-  return { lists: Object.values(state.lists.entities) };
+  return { lists: getLists(state) };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
